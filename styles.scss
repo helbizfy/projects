@@ -1,0 +1,89 @@
+$border-radius: 32px !important;
+
+.container {
+    margin-top: auto;
+}
+
+.search {
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+}
+
+.searchInput {
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+}
+
+.inputForm {
+    border-radius: 32px;
+}
+
+.inputForm:hover {
+    box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+.btn {
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+}
+
+.btn:hover {
+    box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+.nav-link {
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.searchButton {
+    margin-left: -42px;
+    background:none;
+    color: blue;
+}
+
+.advancedSearch {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color:#D93025;
+}
+
+.findPages {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    margin-left: 2rem;
+}
+
+.advancedSearchinputs {
+    margin-left: 2rem;
+}
+
+.advancedSearchinputs label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.advancedSearchinputs span{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.instructions {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.submitButton {
+    background-color: #4C8EFA;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+}
