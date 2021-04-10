@@ -1,0 +1,12 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block body %}
+<h1>Searching for "{{ value }}" </h1>
+
+<ul>
+    {% for value in entries %}
+    <li><a href="/wiki/{{ value }}">{{ value }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
