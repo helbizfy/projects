@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>{{ user }} Watchlist</h2>
+
+{% for listing in listings %}
+<div class="card mb-3" style="max-width: 780px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ listing.listing_picture }}" alt="..." class="img-fluid">
+        </div>
+        <div class="col-md-8">
+
+            <div class="card-body">
+                {% if user.is_authenticated %}
+                {% if user.id == listing.winner.id %}
+                <span class="badge badge-pill badge-info">Winner is {{ listing.winner }}</span>
+                {% elif listing.winner != none %}
+                <span class="badge badge-pill badge-info">Listing is closed</span>
+                {% endif %}
+                {% endif %}
+
+                <h5 class="card-title mt-2"><a href="{% url 'listing' listing.id %}">{{ listing.title }}</a></h5>
+                <p class="card-text">{{ listing.description }}</p>
+                <p class="card-text"><strong class="text-muted">Starting Bid: {{ listing.starting_bid }} $</strong></p>
+
+                <span class="badge badge-primary mb-3">{{ listing.category }}</span>
+
+                <form action="{% url 'delete_watchlist_item' listing.id %}" method='POST'>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-primary btn-sm"><small>Delete from Watchlist</small>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% empty %}
+<h2 style="padding: 15px; font-family: Arial, Helvetica, sans-serif;">Your Watchlist is
+    empty</h2>
+
+{% endfor %}
+
+
+{% endblock %}

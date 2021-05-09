@@ -1,0 +1,101 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+{% if message %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+{% if added %}
+<div class="alert alert-success" role="alert">
+    {{ added }}
+</div>
+{% endif %}
+{% if not_added %}
+<div class="alert alert-danger" role="alert">
+    {{ not_added }}
+</div>
+{% endif %}
+<div class="container-fluid col-md-12 col-lg-12 px-4">
+    <h1> {{ listing.title }} </h1>
+</div>
+
+<div class="container-fluid d-flex ">
+    <div class="col-md-3 col-lg-3"><img src="{{ listing.listing_picture }}" alt="" class="img-fluid"></div>
+    <div class="col-md-3 col-lg-3">
+        <p>Listed by: <strong>{{ listing.author }}</strong></p>
+        <p>Description: {{ listing.description }}</p>
+        <p class="badge badge-primary">{{ listing.category }}</p>
+        <p>Starting Bid <strong>${{ listing.starting_bid }}</strong></p>
+        {% if listing.winner == none %}
+        {% for bid in listing.bid_listing.all %}
+        <p> Current bid by <strong>{{ bid.user }}</strong> amount <strong>$ {{ bid.bid }}</strong></p>
+        {% endfor %}
+        {% elif user.id == listing.winner.id %}
+        <p> <strong>Winner is {{ user }}</strong></p>
+        {% else %}
+        <p> <strong>LISTING IS CLOSED</strong></p>
+        {% endif %}
+    </div>
+    {% if listing.winner == none %}
+    <form action="{% url 'watchlist' listing.id %}" method="POST">
+        {% csrf_token %}
+        <div class="col-md-3 col-lg-3"><input type="submit" class="btn btn-primary" value="Watch"></div>
+    </form>
+    {% endif %}
+    {% if user.id == listing.author.id and listing.winner == none %}
+    <form action="{% url 'closeBid' listing.id %}" method="POST">
+        {% csrf_token %}
+        <div class="col-md-3 col-lg-3"><input type="submit" class="btn btn-primary" value="Close Listing"></div>
+    </form>
+    {% endif %}
+
+</div>
+{% if user.id != listing.author.id and listing.winner == none %}
+<div class="container-fluid d-flex ">
+    <div class="col-md-3 col-lg-3">
+        <form action="{% url 'newBid' listing.id %}" method="POST">
+            {% csrf_token %}
+            {{ bid_form.as_p }}
+            <input type="submit" name="" id="" value="Place Your Bid">
+        </form>
+    </div>
+
+</div>
+{% endif %}
+
+
+
+{% if user.is_authenticated %}
+<div class="container" style="margin-top: 15px;">
+    <h3>Add you comment</h3>
+    <form action="{% url 'newComment' listing.id %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" name="" id="" value="Post Comment">
+    </form>
+    {% else %}
+    <h2>Please log in to add comments</h2>
+</div>
+{% endif %}
+
+
+
+
+<h3 style="margin-top: 10px;">Comments</h3>
+{% if not listing.comments.all %}
+<p>No comments yet</p>
+{% else %}
+{% for comment in listing.comments.all %}
+<strong>{{ comment.user }}</strong> - {{ comment.date_added }}
+<br />
+<i>{{ comment.body }}</i>
+<br />
+<hr>
+{% endfor %}
+{% endif %}
+
+
+
+{% endblock %}
