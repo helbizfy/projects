@@ -15,6 +15,7 @@ urlpatterns = [
     path("postsPage/<int:page>", views.post_list_by_page, name="postsPage"),
     path("newpost", views.newPost, name="newpost"),
     path("posts", views.post_list, name="postList"),
+    path("followingList", views.following_list, name="followingList"),
     path("newlike/<int:post_id>", views.newLike, name="newlike"),
     path("fallowers/<int:user_id>", views.fallowers, name="fallowers")
 ]

@@ -51,7 +51,7 @@ def followingPage(request):
     followingpPosts = Post.objects.filter(
         author__in=followingList.fallowing.all())
 
-    followingPaginator = Paginator(followingpPosts, 5)
+    followingPaginator = Paginator(followingpPosts, 10)
 
     return render(request, "network/following.html", {
         'fposts': followingPaginator
@@ -65,12 +65,23 @@ def following(request, page):
 
     posts = Post.objects.filter(
         author__in=followingList.fallowing.all()).order_by("-timestamp")
-    paginator = Paginator(posts, 5)
+    paginator = Paginator(posts, 10)
     page_obj = paginator.get_page(page)
 
     # Return post contents
     if request.method == "GET":
         return JsonResponse([post.serialize() for post in page_obj], safe=False)
+
+
+def following_list(request):
+    followingList = Fallower.objects.get(user=request.user)
+
+    posts = Post.objects.filter(
+        author__in=followingList.fallowing.all()).order_by("-timestamp")
+
+    # Return post contents
+    if request.method == "GET":
+        return JsonResponse([post.serialize() for post in posts], safe=False)
 
 
 def login_view(request):

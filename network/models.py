@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -29,7 +30,7 @@ class Fallower(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(
         "User", on_delete=models.CASCADE, related_name="posted_by")
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=datetime.now)
     likes = models.IntegerField(default='0')
     body = models.TextField(max_length=100)
     liked_by = models.ManyToManyField(User, related_name='posts')

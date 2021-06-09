@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function allPosts(page) {
+    //Convert page to number for pagination to work
+
+    page = Number(page)
+
     // If page 1, then 'previous' button does not show
 
     if (page == 1) {
@@ -24,14 +28,30 @@ function allPosts(page) {
 
             // If page has more than 10 posts, then 'next' button does shows
 
-            if (posts.length < 10) {
-                document.querySelector('#nextPage').style.display = 'none'
-            } else {
-                document.querySelector('#nextPage').style.display = 'block'
-                document.querySelector('#nextPage').onclick = function () {
-                    allPosts(page + 1)
-                }
-            }
+            const postsOnPage = posts.length
+
+            fetch(`/posts`)
+                .then(response => response.json())
+                .then(posts => {
+
+                    const totalPosts = posts.length
+
+                    if (postsOnPage < 10) {
+                        document.querySelector('#nextPage').style.display = 'none'
+                    }
+                    else if (postsOnPage * page == totalPosts) {
+                        document.querySelector('#nextPage').style.display = 'none'
+                    }
+                    else {
+                        document.querySelector('#nextPage').style.display = 'block'
+                        document.querySelector('#nextPage').onclick = function () {
+                            allPosts(page + 1)
+                        }
+                    }
+                })
+
+
+
             // Showing posts and styling
             posts.forEach(post => {
 
@@ -249,15 +269,16 @@ function fallowUser(user_id) {
 //Following page view
 
 function fallowingView(page) {
+    page = Number(page)
     document.querySelector('#fallowing').innerHTML = ''
 
     //Pagination
 
     if (page == 1) {
-        document.querySelector('#previous').style.display = 'none'
+        document.querySelector('#followPrevious').style.display = 'none'
     } else {
-        document.querySelector('#previous').style.display = 'block'
-        document.querySelector('#previous').onclick = function () {
+        document.querySelector('#followPrevious').style.display = 'block'
+        document.querySelector('#followPrevious').onclick = function () {
             fallowingView(page - 1)
         }
     }
@@ -267,14 +288,27 @@ function fallowingView(page) {
 
             //Pagination
 
-            if (posts.length < 5) {
-                document.querySelector('#nextPage').style.display = 'none'
-            } else {
-                document.querySelector('#nextPage').style.display = 'block'
-                document.querySelector('#nextPage').onclick = function () {
-                    fallowingView(page + 1)
-                }
-            }
+            const postsOnPage = posts.length
+
+            fetch(`/followingList`)
+                .then(response => response.json())
+                .then(posts => {
+
+                    const totalPosts = posts.length
+
+                    if (postsOnPage < 10) {
+                        document.querySelector('#followNextPage').style.display = 'none'
+                    }
+                    else if (postsOnPage * page == totalPosts) {
+                        document.querySelector('#followNextPage').style.display = 'none'
+                    }
+                    else {
+                        document.querySelector('#followNextPage').style.display = 'block'
+                        document.querySelector('#followNextPage').onclick = function () {
+                            fallowingView(page + 1)
+                        }
+                    }
+                })
 
             posts.forEach(post => {
 
