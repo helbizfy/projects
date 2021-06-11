@@ -1,0 +1,15 @@
+env_variables:
+  MYSQL_HOST: mysql:unix_socket=/cloudsql/dev-test-307320:us-central1:dev-test-mysqli
+  MYSQL_DB: newsletter_emails
+  MYSQL_USER: root
+  MYSQL_PASS: iAA9DFCvntu0EAMf
+
+
+mysql://b8f4443fea97fa:027af4f3@eu-cdbr-west-03.cleardb.net/heroku_9eb47492ab03b50?reconnect=true
+
+
+b8f4443fea97fa
+027af4f3
+eu-cdbr-west-03.cleardb.net
+
+magebit-dev-test

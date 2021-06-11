@@ -1,0 +1,7 @@
+SELECT (SUBSTRING_INDEX(SUBSTR(email, INSTR(email, '@') + 1),'.',1)) as provider from newsletter_emails
+
+UPDATE db.Name SET [ref_id] = SUBSTRING([full_id], 1, 3)
+
+SELECT DISTINCT e_provider FROM newsletter_emails
+
+UPDATE `newsletter_emails` SET `e_provider`= SUBSTRING_INDEX(SUBSTR(email, INSTR(email, '@') + 1),'.',1)
