@@ -1,0 +1,56 @@
+{% extends "carpool/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if message %}
+<div class="col-md-6 alert alert-warning text-center mx-auto" role=" alert">
+    <b>{{ message }}</b>
+</div>
+{% endif %}
+
+<div class="col-md-5 col-sm-12 d-flex justify-content-center mx-auto">
+    <h1 class="smallHeading">Where do you want to go?</h1>
+</div>
+
+<div class="col-md-6 mx-auto">
+    <form action="{% url 'rides' %}" method="GET">
+        <div class="input-group-md d-flex inputForm mt-3">
+            <span class="col-2 input-group-text h-100 justify-content-center">From:</span>
+            <!-- <div class="input-group-prepend">
+                <span class="input-group-text h-100 bg-white search border-end-0 rounded-0"><i
+                        class="fa fa-search"></i></span>
+            </div> -->
+            <input id="autocompleteFrom" name="fromLocation" placeholder="Enter a place" type="text"
+                class="form-control searchInput border-start-0 rounded-0 p-2">
+        </div>
+        <div class="input-group-md d-flex inputForm mt-3">
+            <span class="col-2 input-group-text h-100 justify-content-center">To:</span>
+            <!-- <div class="input-group-prepend">
+                <span class="input-group-text h-100 bg-white search border-end-0 rounded-0"><i
+                        class="fa fa-search"></i></span>
+            </div> -->
+            <input id="autocompleteTo" name="toLocation" placeholder="Enter a place"
+                class="form-control searchInput border-start-0 rounded-0 p-2" type="text" name="">
+        </div>
+        <div class="col-md-12 gap-2 d-flex justify-content-center mt-3">
+            <button class="btn btn-primary bg-light text-dark" type="submit">
+                Search Rides</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://kit.fontawesome.com/511e81d08a.js" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'carpool/config.js' %}"></script>
+<script src="{% static 'carpool/script.js' %}"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ1TsoFkxfnxWSGP_wBcrgZXkbOoKrvZQ&libraries=places&callback=initAutocomplete"
+    async defer>
+    </script>
+
+
+{% endblock %}

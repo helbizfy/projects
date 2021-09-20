@@ -1,0 +1,141 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+
+textarea {
+    min-height: 400px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+.starButton {
+    background: none;
+    border: none;
+    color: orange;
+    font-size: xx-large;
+}
+
+.starButton:hover {
+    background: none;
+    border: none;
+    color: orangered;
+    font-size: 40px;
+}
+
+textarea {
+    min-height: 0px;
+    outline: none;
+}
+
+.upper {
+    height: 100px;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #63a4ff;
+    background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+}
+
+.profile {
+    margin-left: 38%;
+    justify-content: center;
+    position: relative;
+    margin-top: -50px;
+    width: 90px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+}
+
+.cardProfile {
+    width: 380px;
+    border: 2px solid whitesmoke ;
+    border-radius: 15px;
+    padding: 8px;
+    background-color: #fff;
+    position: relative;
+}
+
+.stats span {
+    font-size: 29px
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .btnUpload {
+    border: 2px solid rgb(172, 172, 172);
+    color: rgb(172, 172, 172);
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+label {
+    font-size: 18px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.navbar-collapse {
+    padding-left:0;
+ }
+
+/* Mobile responsivity */
+ 
+
+@media only screen and (min-width: 600px) {
+    .hamburger {
+        display: none;
+    }
+
+    .driverName {
+        visibility: hidden;
+        display: none;
+    }
+  }
+
+@media only screen and (max-width: 600px) {
+    .imageCard, .nav-item {
+      display: none;
+    }
+
+
+    .regNav {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .driverName {
+        visibility: visible;
+        display: block;
+    }
+
+    .smallHeading{
+        font-size: 30px;
+    }
+  }

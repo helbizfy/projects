@@ -1,0 +1,137 @@
+{% extends "carpool/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if message %}
+<div class="alert alert-warning" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+
+
+{% for ride in rides %}
+
+{% ifchanged ride.leavingOn %}
+<div class="d-flex justify-content-center" style="text-decoration: underline;">
+    <span style="background-color: #83eaf1; padding: 5px; border-radius: 5px;">Rides on <b>{{ ride.leavingOn }}</b></span>
+    <br>
+</div>
+
+{% endifchanged %}
+
+<div class="card m-2">
+    <div class="row g-0">
+        <div class="col-md-3 text-center p-2">
+            <a href="{% url 'userProfile' ride.driver.id %}"><img src="{{ ride.driver.image.url }}" alt="..."
+                    height="120" width="120" class="rounded-circle"></a>
+
+            <span>
+                <p class="card-text"><strong>{{ ride.driver}}</strong></p>
+            </span>
+        </div>
+        <div class="col-md-6">
+
+            <div class="card-body" style="padding:0">
+                <!-- {% if user.is_authenticated %}
+                {% if user.id == listing.winner.id %}
+                <span class="badge badge-pill badge-info">Winner is {{ listing.winner }}</span>
+                {% elif listing.winner != none %}
+                <span class="badge badge-pill badge-info">Listing is closed</span>
+                {% endif %}
+                {% endif %} -->
+                <div class="d-flex align-items-center">
+                    <h4 class="card-text">{{ ride.cityFrom }}</h4>
+                    <i class="fa fa-long-arrow-right fa-3x" style="padding: 5px;" aria-hidden="true"></i>
+                    <h4 class="card-text">{{ ride.cityTo }}</h4>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-calendar fa-lg" style="padding: 5px;" aria-hidden="true"></i>
+                    <span>
+                        <p class="card-text">{{ ride.leavingOn}}</p>
+                    </span>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-clock-o fa-lg" style="padding: 5px;" aria-hidden="true"></i>
+                    <span>
+                        <p class="card-text">{{ ride.timeLeaving }}</p>
+                    </span>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-location-arrow fa-lg" style="padding: 5px;" aria-hidden="true"></i>
+                    <span>
+                        <p class="card-text">{{ ride.pickUpAddress }}</p>
+                    </span>
+                    <a href="https://www.google.com/maps/place/{{ ride.pickUpAddress }}" target=”_blank”>(Google
+                        maps)</a>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-hashtag fa-lg" style="padding: 5px;" aria-hidden="true"></i>
+                    <p class="card-text">{{ ride.plateNumber }}</p>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-eur fa-lg" style="padding: 5px;" aria-hidden="true"></i>
+                    <p class="card-text">{{ ride.price }}</p>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-phone fa-lg" style="padding: 5px;" aria-hidden="true"></i>
+                    <p class="card-text">{{ ride.phoneNumber }}</p>
+                </div>
+
+                <form action="{% url 'addPassenger' ride.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="d-flex align-items-center">
+                        <p class="card-text pt-1 pr-2"><strong>Seats taken</strong> {{ ride.passangers.count }}/{{ ride.seats }}</p>
+                        {% if ride.passangers.count == ride.seats %}
+                        <p class="badge badge-danger p-2 m-1">All seats are taken</p>
+                        {% elif user in ride.passangers.all %}
+                        <p class="badge badge-primary">You are on this ride</p>
+                        {% elif user == ride.driver %}
+                        <p class="badge badge-primary">This is your ride</p>
+                        {% else %}
+                        {% if user.is_authenticated %}
+                        <button class="btn btn-secondary btn-sm">Join Ride</button>
+                        {% else %}
+                        <p class="badge badge-warning">Please log in to join</p>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </form>
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <img src="{{ ride.carImage.url }}" alt="..." class="img-fluid">
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script src="https://kit.fontawesome.com/511e81d08a.js" crossorigin="anonymous"></script>
+
+
+
+
+
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'carpool/script.js' %}"></script>
+
+{% endblock %}

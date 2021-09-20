@@ -1,0 +1,106 @@
+{% extends "carpool/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="row col-md-12 container d-flex">
+
+    <!-- Profile card -->
+
+    <div class="col-md-4 col-sm-12 mx-auto">
+
+        <div class="container d-flex justify-content-left align-items-center">
+            <div class="cardProfile">
+                <div class="upper"> </div>
+                <div class="user text-center">
+                    <div class="profile"> <img src="{{ profile.image.url }}" height="80" width="80"
+                            class="rounded-circle"> </div>
+                </div>
+                <div class="text-center">
+                    <h4 class="">{{ profile }}</h4>
+
+                    <div class="d-flex justify-content-between align-items-center mt-4 px-4">
+                        <div class="stats">
+                            <h6 class="mb-0">Rides</h6> <span>{{ ridesCompleted.count }}</span>
+                        </div>
+                        <div class="stats">
+                            {% if avg_rate != None %}
+                            <h6 class=""><i class="fa fa-star" style="color: rgb(251, 255, 0); font-size: 23px;"></i>
+                            </h6>
+                            <span>{{ avg_rate }}/5</span>
+                            {% endif %}
+                        </div>
+                        <div class="stats">
+                            <h6 class="">Reviews</h6> <span>{{ ridesRated.count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Profile card ends -->
+
+    <!-- Review section -->
+
+    <div class="col-md-8 col-sm-12 p-3">
+
+        <div class="text-left pb-2">
+            <h6>All Reviews ({{ ridesRated.count }})</h6>
+        </div>
+
+        <div class="col-md-12 overflow-auto" style="height: 100vh;">
+
+
+
+            {% for rideRated in ridesRated %}
+
+
+            <div class="card p-3 mb-2 d-flex">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-column ms-2 align-items-center">
+                        <img src="{{ rideRated.user.image.url }}" height="50" width="50" class="rounded-circle">
+                        <h6 class="mb-1 text-primary">{{ rideRated.user }}</h6>
+
+                    </div>
+                    <div class="col-md-7 m-2"
+                        style="background-color: whitesmoke; border: solid; border-radius: 15px; border-color: whitesmoke;">
+                        <p class="comment-text"><q>{{ rideRated.text }}</q></p>
+                    </div>
+                    <div class=""> <span class="text-muted fw-normal fs-10">{{ rideRated.date }}</span>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <!-- Review section ends -->
+
+
+
+
+</div>
+
+
+
+<script src="https://kit.fontawesome.com/511e81d08a.js" crossorigin="anonymous"></script>
+
+{% endblock %}
