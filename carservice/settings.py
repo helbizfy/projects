@@ -20,8 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v()u1*j2$q9if2rp)7w5c!$@-4sln^0jt&xb%*i@i240-5gnp8'
-MY_KEY = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAZ1TsoFkxfnxWSGP_wBcrgZXkbOoKrvZQ&libraries=places&callback=initAutocomplete'
+SECRET_KEY = ''
+MY_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
